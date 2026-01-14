@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #2d0b3a 0%, #000000 100%);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        .container { width: 90%; max-width: 400px; }
+
+        /* Step 1: Landing */
+        #step1 img { width: 120px; border-radius: 50%; border: 3px solid #ff4da6; margin-bottom: 20px; }
+        h1 { font-size: 2rem; margin-bottom: 10px; color: #ffb3d9; }
+        
+        /* Buttons */
+        .btn {
+            background: #ff4da6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 77, 166, 0.5);
+            transition: 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); background: #ff1a8c; }
+
+        /* Step 2: Cuteness Meter */
+        #step2 { display: none; }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background: #441454;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff4da6, #ffb3d9);
+            transition: 0.1s linear;
+        }
+
+        /* Step 3: Message Reveal */
+        #step3 { display: none; }
+        .heart { font-size: 50px; color: #ff4da6; animation: beat 1s infinite; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        
+        .note {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #ff4da6;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="step1">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJzYjRzYjRzYjRzYjRzYjRzYjRzYjRzYjRzYjRzYjRzJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/Y4S6XF1Z5X2Xy/giphy.gif" alt="Cute character">
+            <h1>Hey Beautiful!</h1>
+            <p>Do you even know how cute you are?</p>
+            <button class="btn" onclick="startMeter()">Measure My Cuteness</button>
+        </div>
+
+        <div id="step2">
+            <h2 id="statusText">Measuring your cuteness...</h2>
+            <div class="progress-container">
+                <div id="bar" class="progress-bar"></div>
+            </div>
+            <h1 id="percentage">0%</h1>
+            <p id="warning" class="hidden" style="color: #ff4da6; font-weight: bold;">⚠️ WARNING: TOO CUTE TO HANDLE!</p>
+        </div>
+
+        <div id="step3">
+            <div class="heart">❤️</div>
+            <div class="note">
+                <h3>A little note for you...</h3>
+                <p>I just wanted to tell you something... you really are special in a way that's hard to explain. There's a sweetness in the way you smile that just makes everything feel better.</p>
+                <p><strong>You'll always be special to me.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startMeter() {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+            
+            let bar = document.getElementById('bar');
+            let percentText = document.getElementById('percentage');
+            let width = 0;
+            
+            let interval = setInterval(() => {
+                if (width >= 120) {
+                    clearInterval(interval);
+                    document.getElementById('warning').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById('step2').style.display = 'none';
+                        document.getElementById('step3').style.display = 'block';
+                    }, 2500);
+                } else {
+                    width++;
+                    bar.style.width = (width > 100 ? 100 : width) + '%';
+                    percentText.innerHTML = width + '%';
+                }
+            }, 50);
+        }
+    </script>
+</body>
+</html>
